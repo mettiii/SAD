@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Craft | frontend development hub</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+
+      header {
+        background-color: #4361ee;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      nav .logo {
+        padding-top: 8px;
+        font-size: 24px;
+        color: white;
+      }
+      nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: normal;
+      }
+      nav span {
+        align-self: flex-start;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        align-content: flex-end;
+        gap: 15px;
+        padding-right: 0px;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .top {
+        display: flex;
+        flex-direction: column;
+        background-color: #3f37c9;
+        padding-top: 0px;
+        color: white;
+        padding: 50px;
+      }
+      .top h1 {
+        font-size: xx-large;
+        color: white;
+        text-align: center;
+      }
+      .top p {
+        padding: 0px 70px;
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto 2rem;
+      }
+      .link {
+        border: 2px solid #8bc1ff;
+        border-radius: 50px;
+        width: 10%;
+        align-self: center;
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
+        text-decoration: none;
+        background-color: #8bc1ff;
+        color: white;
+      }
+      .link:hover {
+        background-color: #3f37c9;
+        color: #8bc1ff;
+      }
+
+      h2 {
+        text-align: center;
+        color: black;
+        padding-bottom: 10px;
+        text-decoration: underline #4361ee;
+      }
+
+      details {
+        margin-bottom: 10px;
+      }
+
+      details summary {
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 20px;
+        border: solid;
+        border-radius: 10px;
+        border-color: lightblue;
+        padding: 10px;
+      }
+      details summary:hover {
+        background-color: lightskyblue;
+        border-radius: 20px;
+        border: 1 px solid lightblue;
+      }
+      details summary ul {
+        color: rgb(67, 149, 203);
+      }
+      details summary ul li:hover {
+        background-color: lightskyblue;
+        border-radius: 20px;
+        border: 1px solid lightblue;
+      }
+      .btnContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 10px;
+      }
+      .btn {
+        border: 1px solid lightblue;
+        border-radius: 15px;
+        padding: 7px;
+        margin: 7px;
+        background-color: 8bc1ff;
+      }
+      .roadmaps h1 {
+        text-align: start;
+      }
+      div .roadmaps {
+        transform: scale(1.05);
+
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+        background-color: aliceblue;
+        padding: 10px;
+        margin: 50px 150px;
+      }
+      .insightsContainer {
+        display: flex;
+        padding: 10px;
+      }
+      .insightsContainer h1 {
+        margin-bottom: 10px;
+      }
+      .insights h3 {
+        color: #4361ee;
+      }
+      .container1 {
+        display: flex;
+        justify-content: space-around;
+      }
+      .insights {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        align-items: center;
+        padding: 20px;
+        transform: scale(1.05);
+        background-color: aliceblue;
+      }
+      .insights p {
+        margin-right: px;
+      }
+      .insights ul {
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <span>CodeCraft</span>
+          </div>
+          <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">Industry Insights</a></li>
+            <li><a href="">Technology Radar</a></li>
+            <li><a href="">Learning Roadmaps</a></li>
+            <li><a href="">Projects</a></li>
+            <li><a href="">Mentors</a></li>
+            <li><a href="">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section>
+      <div class="top">
+        <h1>Master Frontend development in 2025</h1>
+        <p>
+          Join our community of developers and stay ahead with the latest
+          trends, tools, and techniques in frontend development. Learn, build,
+          and grow with CodeCraft.
+        </p>
+        <a class="link" href="">Start Learning</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Industry Insights</h2>
+        <div class="container1">
+          <div class="insights">
+            <h3>Salary Trends</h3>
+            <p>
+              <strong>Junior Developer:</strong>&dollar;60k-&dollar;80k
+              (US),&euro;30k-&euro;45k (UK), ₹6L-₹10L (India)
+            </p>
+            <p>
+              <strong>Mid-Level:</strong>&dollar;80k-&dollar;120k (US),
+              &euro;45k-&euro;70k (UK), ₹10L-₹20L (India)
+            </p>
+            <p>
+              <strong>Senior Developer:</strong>&dollar;120k-&dollar;180k (US),
+              &euro;70k-&euro;100k (UK), ₹20L-₹35L (India)
+            </p>
+            <p>
+              <strong>Freelance Rates:</strong>&dollar;60k-&dollar;80k
+              (US),&euro;30k-&euro;45k (UK), ₹6L-₹10L (India)
+            </p>
+          </div>
+          <div class="insights">
+            <h3>Job Market</h3>
+            <p>
+              <strong>Top Hiring Companies: </strong> Google, Meta, Netflix,
+              Shopify,Airbnb, Stripe
+            </p>
+            <p>
+              <strong>Trending Startups: </strong>Figma, Notion, Canva,
+              Discord,Robinhood
+            </p>
+            <p><strong>Key In-Demand Skills: </strong></p>
+            <ul>
+              <li>React.js</li>
+              <li>TypScript</li>
+              <li>tailwind css</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div>
+        <h2>Frontend Tech Radar 2025</h2>
+        <div class="btnContainer">
+          <div class="btn">Trends</div>
+          <div class="btn">Tools</div>
+          <div class="btn">Deployment</div>
+        </div>
+        <div>
+          <ul>
+            <li>React still leads, but Qwik and Svelte are rising</li>
+            <li>Tailwind CSS is now the go-to for styling</li>
+            <li>Vite and Turbopack are replacing Webpack</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li><strong>Frameworks: </strong>React, Next.js, Svelte</li>
+            <li><strong>Styling: </strong>Tailwind CSS, SCSS</li>
+            <li><strong>Build: </strong>Vite, Turbopack</li>
+            <li><strong>Design: </strong>Figma, Storybook</li>
+            <li><strong>Emerging: </strong>Bun, HTMX</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>Next.js + Vercel for fullstack apps</li>
+            <li>React + Netlify for Jamstack</li>
+            <li>Astro/SvelteKit + Cloudflare for static sites</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div>
+        <h2>Learning Roadmaps</h2>
+        <div class="roadmaps">
+          <h1>Frontend in 2025 Path</h1>
+          <ol>
+            <li>
+              <strong>HTML/CSS Fundamentals:</strong> Semantic HTML,Flexbox,Grid
+            </li>
+            <li>
+              <strong>JavaScript Core:</strong> ES6+, DOM Manipulation, Async JS
+            </li>
+            <li>
+              <strong>React/Vue/Svelte: </strong>Components, State Management
+            </li>
+            <li><strong>TypeScript: </strong>Static Typing for JavaScript</li>
+            <li>
+              <strong>Testing: </strong>Jest, React Testing Library, Cypress
+            </li>
+          </ol>
+        </div>
+        <div class="roadmaps">
+          <h1>Specialization Paths</h1>
+          <details>
+            <summary>UI/UX Focus</summary>
+            <ul>
+              <li>Figma for prototyping</li>
+              <li>Framer for animations</li>
+              <li>Design systems</li>
+              <li>User research basics</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Performance Optimization</summary>
+            <ul>
+              <li>Web Vitals metrics</li>
+              <li>Lighthouse audits</li>
+              <li>Bundle size reduction</li>
+              <li>Lazy loading</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Accessibility</summary>
+            <ul>
+              <li>WCAG guidelines</li>
+              <li>ARIA attributes</li>
+              <li>Screen reader testing</li>
+              <li>Color contrast</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
