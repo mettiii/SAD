@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="exam_paper_template" name="Exam With Navigation">
+        <div class="container py-5">
+
+            <!-- Exam Title & Duration -->
+            <div class="text-center mb-4">
+                <h1 class="display-5 fw-bold text-primary">
+                    <t t-esc="exam.name"/>
+                </h1>
+                <p class="lead text-muted">
+                    Duration:
+                    <strong>
+                        <t t-esc="exam.duration_minutes"/>
+                        minutes
+                    </strong>
+                </p>
+
+            </div>
+            <!-- Question-number Navigation Box -->
+            <div id="question-nav" class="d-flex flex-wrap justify-content-center mb-4">
+                <h1>Questions</h1>
+                <t t-set="nav_index" t-value="0"/>
+                <t t-foreach="questions" t-as="q">
+                    <t t-set="nav_index" t-value="nav_index + 1"/>
+
+                    <button type="button"
+                            class="btn m-1 nav-question-btn"
+                            t-att-data-index="nav_index - 1"
+                            t-att-id="'nav_btn_' + str(q.id)"
+                            style="border: 2px solid red; color: red;">
+                        <t t-esc="nav_index"/>
+                    </button>
+                </t>
+            </div>
+
+            <!-- Exam Form -->
+            <form action="/my/exams/submit" method="POST">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="hidden" name="exam_id" t-att-value="exam.id"/>
+                <div id="part-heading" class="mb-3 text-decoration-underline fw-bold fs-4"></div>
+
+                <t t-set="qnum" t-value="0"/>
+
+                <!-- QUESTIONS -->
+                <t t-foreach="questions" t-as="q">
+                    <t t-set="qnum" t-value="qnum + 1"/>
+                    <div class="question-container" t-att-id="'q_' + str(qnum)" style="display:none">
+                        <div class="card shadow-sm rounded-4 mb-4 border-0">
+                            <div class="card-body">
+                                <p class="fw-semibold fs-5 mb-3">Q<t t-esc="qnum"/>:
+                                    <t t-esc="q.name"/>
+                                </p>
+
+                                <!-- True / False -->
+                                <t t-if="q.question_type == 'true_false'">
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input answer-input"
+                                               t-att-name="'answer_' + str(q.id)"
+                                               value="True" t-att-id="'true_' + str(q.id)"/>
+                                        <label class="form-check-label" t-att-for="'true_' + str(q.id)">True</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input answer-input"
+                                               t-att-name="'answer_' + str(q.id)"
+                                               value="False" t-att-id="'false_' + str(q.id)"/>
+                                        <label class="form-check-label" t-att-for="'false_' + str(q.id)">False</label>
+                                    </div>
+                                </t>
+
+                                <!-- Multiple Choice -->
+                                <t t-if="q.question_type == 'multiple_choice'">
+                                    <t t-foreach="['a', 'b', 'c', 'd']" t-as="opt">
+                                        <t t-set="opt_upper" t-value="opt.upper()"/>
+                                        <div class="form-check mb-2">
+                                            <input type="radio" class="form-check-input answer-input"
+                                                   t-att-name="'answer_' + str(q.id)"
+                                                   t-att-value="opt"
+                                                   t-att-id="opt + '_' + str(q.id)"/>
+                                            <label class="form-check-label" t-att-for="opt + '_' + str(q.id)">
+                                                <t t-esc="opt_upper"/>.
+                                                <t t-esc="q['option_' + opt]"/>
+                                            </label>
+                                        </div>
+                                    </t>
+                                </t>
+
+                                <!-- Essay -->
+                                <t t-if="q.question_type == 'essay'">
+                                    <div class="form-floating mt-3">
+                                        <textarea class="form-control answer-input"
+                                                  t-att-name="'answer_' + str(q.id)"
+                                                  placeholder="Write your answer..."
+                                                  style="height:150px;"></textarea>
+                                    </div>
+                                </t>
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- Navigation & Submission -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-outline-secondary" id="prevBtn">⬅️ Previous</button>
+                    <button type="button" class="btn btn-outline-primary m" id="nextBtn">Next ➡️</button>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-lg btn-success m-3">🎓 Submit My Exam</button>
+                </div>
+            </form>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const qs = document.querySelectorAll('.question-container');
+                const navs = document.querySelectorAll('.nav-question-btn');
+                const inputs = document.querySelectorAll('.answer-input');
+                const partHeading = document.getElementById('part-heading');
+                let current = 0;
+
+                const seenQuestions = new Set();
+
+                navs.forEach(btn => {
+                    btn.style.backgroundColor = '#fff8dc';
+                    btn.style.borderRadius = '0.75rem';
+                    btn.style.color = 'black';
+                    btn.style.padding = '0.5rem 0.8rem';
+                    btn.style.margin = '0.3rem 0.4rem';
+                    btn.style.fontSize = '1rem';
+                    btn.style.border = '2px solid #ccc';
+                    btn.style.transition = 'all 0.3s ease';
+                });
+
+                function getQuestionType(q) {
+                    if (q.querySelector('textarea')) return 'essay';
+                    const radios = q.querySelectorAll('input[type="radio"]');
+                    if (radios.length) {
+                        const values = new Set(Array.from(radios).map(r => r.value));
+                        if (values.has('True') &amp;&amp; values.has('False')) return 'true_false';
+                        return 'multiple_choice';
+                    }
+                    return '';
+                }
+
+                function updateHeading(qElem) {
+                    const qType = getQuestionType(qElem);
+                    switch (qType) {
+                        case 'true_false':
+                            partHeading.textContent = '📘 Part One – True or False';
+                            break;
+                        case 'multiple_choice':
+                            partHeading.textContent = '📘 Part Two – Multiple Choice';
+                            break;
+                        case 'essay':
+                            partHeading.textContent = '📘 Part Three – Essay Questions';
+                            break;
+                        default:
+                            partHeading.textContent = '';
+                    }
+                }
+
+                function show(i) {
+                    qs.forEach(q => q.style.display = 'none');
+                    if (!qs[i]) return;
+                    qs[i].style.display = 'block';
+                    current = i;
+
+                    const qid = navs[i].id.replace('nav_btn_', '');
+                    seenQuestions.add(qid);
+
+                    updateHeading(qs[i]);
+                    updateNavHighlight();
+                }
+
+                function isAnswered(qid) {
+                    const els = document.getElementsByName('answer_' + qid);
+                    return Array.from(els).some(el => {
+                        if (el.type === 'radio') return el.checked;
+                        if (el.tagName === 'TEXTAREA') return el.value.trim() !== '';
+                        return false;
+                    });
+                }
+
+                function updateNavHighlight() {
+                    navs.forEach((btn, i) => {
+                        const qid = btn.id.replace('nav_btn_', '');
+                        const isCurrent = parseInt(btn.dataset.index, 10) === current;
+                        const answered = isAnswered(qid);
+                        const seen = seenQuestions.has(qid);
+
+                        btn.style.color = 'black';
+
+                        if (answered) {
+                            btn.style.backgroundColor = '#d4edda';
+                            btn.style.border = '2px solid #d4edda';
+                        } else if (seen) {
+                            btn.style.backgroundColor = '#f8d7da';
+                            btn.style.border = isCurrent ? '3px solid blue' : '2px solid #f8d7da';
+                        } else {
+                            btn.style.backgroundColor = '#fff8dc';
+                            btn.style.border = '2px solid #ccc';
+                        }
+
+                        if (isCurrent) {
+                            btn.style.border = '3px solid black';
+                        }
+                    });
+                }
+
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => updateNavHighlight());
+                });
+
+                navs.forEach(btn => {
+                    const idx = parseInt(btn.dataset.index, 10);
+                    btn.addEventListener('click', () => show(idx));
+                });
+
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    show(Math.max(0, current - 1));
+                });
+
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    show(Math.min(qs.length - 1, current + 1));
+                });
+
+                show(0); // Start
+            });
+        </script>
+
+    </template>
+</odoo>

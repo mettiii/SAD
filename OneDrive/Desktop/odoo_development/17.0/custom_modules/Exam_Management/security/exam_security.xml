@@ -1,0 +1,19 @@
+<odoo>
+    <!-- Candidate Group -->
+    <record id="group_exam_candidate" model="res.groups">
+        <field name="name">Candidate</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+    </record>
+
+    <!-- Record Rule: Candidate sees only their exam sessions -->
+    <record id="rule_exam_candidate_see_own" model="ir.rule">
+        <field name="name">Candidate: View Own Exam Sessions</field>
+        <field name="model_id" ref="model_exam_session"/>
+        <field name="domain_force">[('candidate_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('exam_system.group_exam_candidate'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+</odoo>

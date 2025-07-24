@@ -1,0 +1,149 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<odoo>-->
+<!--    <data>-->
+
+<!--        &lt;!&ndash; Action: View Exam Question Display &ndash;&gt;-->
+<!--        <record id="action_exam_question_display" model="ir.actions.act_window">-->
+<!--            <field name="name">Display Exam Questions</field>-->
+<!--            <field name="res_model">exam.question.display</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">current</field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash; Fixed: Form View for Taking the Exam (NO t-foreach used) &ndash;&gt;-->
+<!--        <record id="view_exam_taking_form" model="ir.ui.view">-->
+<!--            <field name="name">exam.question.display</field>-->
+<!--            <field name="model">exam.question.display</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Take Exam" create="false" edit="false">-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <field name="exam_id"/>-->
+<!--                        </group>-->
+
+<!--                        <group string="Multiple Choice Questions">-->
+<!--                            <field name="mcq_lines">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="option_a"/>-->
+<!--                                    <field name="option_b"/>-->
+<!--                                    <field name="option_c"/>-->
+<!--                                    <field name="option_d"/>-->
+<!--&lt;!&ndash;                                    <field name="correct_answer"/>&ndash;&gt;-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+
+<!--                        <group string="True/False Questions">-->
+<!--                            <field name="tf_lines">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="true_false_answer"/>-->
+<!--                                    &lt;!&ndash;                                    <field name="selected_tf_answer"/>&ndash;&gt;-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+
+<!--                        <group string="Essay Questions">-->
+<!--                            <field name="essay_lines">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="essay_answer"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+
+<!--&lt;!&ndash;                        <group string="Column A">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <field name="matching_lines">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <tree editable="bottom">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="match_question"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="match_answer"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                    <field name="selected_match"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                </tree>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </field>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </group>&ndash;&gt;-->
+<!--                    </sheet>-->
+
+<!--                    <footer>-->
+<!--                        <button string="Submit Exam" type="object" name="submit_exam" class="btn-primary"/>-->
+<!--                        <button string="Cancel" class="btn-secondary" special="cancel"/>-->
+<!--                    </footer>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash; Action: Launch Exam Taking Form &ndash;&gt;-->
+<!--        <record id="action_exam_taking" model="ir.actions.act_window">-->
+<!--            <field name="name">Take Exam</field>-->
+<!--            <field name="res_model">exam.question.display</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="view_id" ref="view_exam_taking_form"/>-->
+<!--            <field name="target">current</field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash; Original Exam Question Setup View &ndash;&gt;-->
+<!--        <record id="view_exam_question_display_form" model="ir.ui.view">-->
+<!--            <field name="name">exam.question.display.form</field>-->
+<!--            <field name="model">exam.question.display</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Exam Questions">-->
+<!--                    <header>-->
+<!--                        <h3>Sample Exam Paper</h3>-->
+<!--                    </header>-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <field name="exam_id" onchange="_onchange_exam_id" options="{'no_create': True}"/>-->
+<!--                        </group>-->
+
+<!--                        <group string="Multiple Choice Questions">-->
+<!--                            <field name="mcq_lines" widget="one2many_list">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="option_a"/>-->
+<!--                                    <field name="option_b"/>-->
+<!--                                    <field name="option_c"/>-->
+<!--                                    <field name="option_d"/>-->
+<!--&lt;!&ndash;                                    <field name="correct_answer"/>&ndash;&gt;-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+
+<!--                        <group string="True/False Questions">-->
+<!--                            <field name="tf_lines" widget="one2many_list">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="true_false_answer"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+
+<!--                        <group string="Essay Questions">-->
+<!--                            <field name="essay_lines" widget="one2many_list">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="essay_answer"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+
+<!--&lt;!&ndash;                        <group string="Column A">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <field name="matching_lines" widget="one2many_list">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <tree editable="bottom">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="match_question"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="match_answer"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </tree>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </field>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </group>&ndash;&gt;-->
+<!--                        <footer>-->
+<!--                            <button string="Submit Exam" type="object" name="submit_exam" class="btn-primary"/>-->
+<!--                            <button string="Cancel" class="btn-secondary" special="cancel"/>-->
+<!--                        </footer>-->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--    </data>-->
+<!--</odoo>-->

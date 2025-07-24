@@ -1,0 +1,40 @@
+<odoo>
+    <record id="view_exam_taker_form" model="ir.ui.view">
+        <field name="name">exam.taker.form</field>
+        <field name="model">exam.taker</field>
+        <field name="arch" type="xml">
+            <form string="Exam Taker">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="user_id"/>
+                        <field name="employee_id"/>
+                        <field name="exam_ids" widget="many2many_tags"/>
+                        <field name="is_employee" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_exam_taker_tree" model="ir.ui.view">
+        <field name="name">exam.taker.tree</field>
+        <field name="model">exam.taker</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="employee_id"/>
+                <field name="is_employee"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_exam_taker" model="ir.actions.act_window">
+        <field name="name">Exam Takers</field>
+        <field name="res_model">exam.taker</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_exam_takers" name="Exam Takers" parent="hr.menu_hr_root" action="action_exam_taker"/>
+</odoo>

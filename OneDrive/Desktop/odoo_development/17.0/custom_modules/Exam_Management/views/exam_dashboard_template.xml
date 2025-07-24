@@ -1,0 +1,83 @@
+<odoo>
+    <template id="exam_dashboard_template" name="Exam Dashboard">
+        <t t-call="web.basic_layout">
+            <t t-set="user" t-value="request.env.user"/>
+            <t t-set="btn_style" t-value="'btn custom-maroon-btn'"/>
+
+            <style>
+                .custom-maroon-btn {
+                    background-color: #4B1818;
+                    color: #fff;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                    font-weight: 500;
+                }
+
+                .custom-maroon-btn:hover {
+                    background-color: #641e1e;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    transform: scale(1.05);
+                }
+
+                .custom-maroon-btn:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 0.2rem rgba(75, 24, 24, 0.5);
+                }
+            </style>
+
+            <div class="container my-5">
+                <h2>Hello <t t-esc="user.name"/> 👋</h2>
+                <p>Welcome to the Exam Management Dashboard</p>
+
+                <div class="row mt-4">
+                    <t t-if="is_hr">
+                        <div class="col-12 mb-3">
+                            <h4>HR Admin Actions</h4>
+                            <a t-att-class="btn_style + ' m-1'">Manage Exams</a>
+                            <a t-att-class="btn_style + ' m-1'">Schedule Exams</a>
+                            <a t-att-class="btn_style + ' m-1'">Create Users</a>
+                            <a t-att-class="btn_style + ' m-1'">View Reports</a>
+                        </div>
+                    </t>
+
+                    <t t-if="is_examiner">
+                        <div class="col-12 mb-3">
+                            <h4>Examiner Actions</h4>
+                            <a t-att-class="btn_style + ' m-1'">Review Questions</a>
+                            <a t-att-class="btn_style + ' m-1'">Evaluate Results</a>
+                        </div>
+                    </t>
+
+                    <t t-if="is_candidate">
+                        <div class="col-12 mb-3">
+                            <h4>Candidate Actions</h4>
+
+                            <t t-if="assigned_exams">
+                                <ul class="list-group mb-3">
+                                    <t t-foreach="assigned_exams" t-as="exam">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong><t t-esc="exam.name"/></strong><br/>
+                                                <small>Scheduled:
+                                                    <t t-esc="exam.scheduled_datetime.strftime('%Y-%m-%d %H:%M') if exam.scheduled_datetime else 'Not set'"/>
+                                                </small>
+                                            </div>
+                                            <a t-attf-href="/my/exams/{{ exam.id }}/start" t-att-class="btn_style + ' btn-sm'">Take Exam</a>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </t>
+                            <t t-else="">
+                                <div class="alert alert-info">No exams have been assigned to you yet.</div>
+                            </t>
+
+                            <a t-att-class="btn_style + ' m-1'">View Score</a>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

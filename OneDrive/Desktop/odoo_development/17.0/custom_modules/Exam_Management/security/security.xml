@@ -1,0 +1,16 @@
+<odoo>
+    <record id="group_exam_hr_admin" model="res.groups">
+    <field name="name">Exam HR Admin</field>
+    <field name="category_id" ref="base.module_category_human_resources"/>
+</record>
+<record id="group_exam_examiner" model="res.groups">
+    <field name="name">Exam Examiner</field>
+    <field name="category_id" ref="base.module_category_human_resources"/>
+</record>
+
+<record id="group_exam_candidate" model="res.groups">
+    <field name="name">Exam Candidate</field>
+    <field name="category_id" ref="base.module_category_human_resources"/>
+</record>
+
+</odoo>

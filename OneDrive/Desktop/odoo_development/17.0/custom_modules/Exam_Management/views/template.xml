@@ -1,0 +1,22 @@
+ <odoo>
+<!--  &lt;!&ndash; Custom layout that inherits website.layout &ndash;&gt;-->
+<!--  <template id="custom_exam_layout" inherit_id="website.layout">-->
+
+<!--    &lt;!&ndash; Remove header &ndash;&gt;-->
+<!--    <xpath expr="//header" position="replace">-->
+<!--      <div></div>-->
+<!--    </xpath>-->
+
+<!--    &lt;!&ndash; Remove footer &ndash;&gt;-->
+<!--    <xpath expr="//footer" position="replace">-->
+<!--      <div></div>-->
+<!--    </xpath>-->
+
+<!--    &lt;!&ndash; Insert our custom content inside wrapwrap &ndash;&gt;-->
+<!--    <xpath expr="//div[@id='wrapwrap']" position="replace">-->
+<!--      <div id="wrapwrap">-->
+<!--        <t t-raw="0"/>-->
+<!--      </div>-->
+<!--    </xpath>-->
+<!--  </template>-->
+</odoo>

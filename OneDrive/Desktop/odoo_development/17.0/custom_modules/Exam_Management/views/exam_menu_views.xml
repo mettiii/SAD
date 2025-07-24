@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Top-level menu -->
+    <menuitem id="menu_root" name="Bunna Bank Exam Management" sequence="0"/>
+    <!-- Submenu: Exams -->
+    <menuitem id="exams_list" name="Exams" parent="menu_root" action="action_exam_list" sequence="1"/>
+
+    <!-- Submenu: Exam Takers (Editable) -->
+    <menuitem id="exam_takers" name="System Users" parent="menu_root" action="action_exam_taker" sequence="2"/>
+
+<!--     Submenu: Exam Results-->
+<!--    <menuitem id="menu_exam_results"-->
+<!--              name="Exam Results"-->
+<!--              parent="menu_root"-->
+<!--              action="action_exam_result"-->
+<!--              sequence="3"/>-->
+
+    <!-- Submenu: Manage Exams -->
+    <!-- <menuitem id="menu_exam_setup" name="Manage Exams" parent="menu_root" action="action_exam_management" sequence="2"/> -->
+    <!--    <menuitem id="user_exam_questions" name="User View" parent="menu_root" action="action_exam_question_display"-->
+    <!--              sequence="4"/>-->
+
+    <!-- Submenu: Take Exam (New Radio Button Interface) -->
+    <!--    <menuitem id="take_exam" name="Take Exam" parent="menu_root" action="action_exam_taking" sequence="5"/>-->
+
+
+    <!-- Submenu: Question Bank -->
+    <menuitem id="menu_exam_questions" name="Question Bank" parent="menu_root" action="action_exam_question_bank"
+              sequence="6"/>
+    <menuitem id="menu_new_question" name="Create Question" parent="menu_exam_questions"
+              action="action_exam_question_bank"/>
+    <menuitem id="menu_import_question" name="Import Questions" parent="menu_exam_questions"
+              action="action_import_questions"/>
+
+</odoo>

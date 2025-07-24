@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_exam_management,access.exam.management,model_exam_management,base.group_user,1,1,1,1
+access_exam_result,access.exam.result,model_exam_result,base.group_user,1,1,1,1
+access_exam_question_user,access.exam.question.user,model_exam_question,base.group_user,1,1,1,1
+access_exam_management_file,access_exam_management_file,model_exam_management_file,,1,1,1,1
+access_exam_question_import_wizard,access.exam.question.import.wizard,model_exam_question_import_wizard,base.group_user,1,1,1,1

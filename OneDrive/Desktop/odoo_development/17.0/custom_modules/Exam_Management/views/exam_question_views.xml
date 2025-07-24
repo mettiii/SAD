@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+
+        <!-- Tree View: Question Bank -->
+        <record id="view_exam_question_tree" model="ir.ui.view">
+            <field name="name">exam.question.tree</field>
+            <field name="model">exam.question</field>
+            <field name="arch" type="xml">
+                <tree string="Question Bank">
+                    <field name="name"/>
+                    <field name="question_type"/>
+                    <field name="correct_ans"/>
+                    <field name="exam_type"/>
+                    <field name="department_id"/>
+                    <field name="mark"/>
+                    <field name="job_grade" optional="hide"/>
+                    <field name="job_role" optional="hide"/>
+                    <field name="option_a" optional="hide"/>
+                    <field name="option_b" optional="hide"/>
+                    <field name="option_c" optional="hide"/>
+                    <field name="option_d" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View: Individual Question -->
+        <record id="view_exam_question_form" model="ir.ui.view">
+            <field name="name">exam.question.form</field>
+            <field name="model">exam.question</field>
+            <field name="arch" type="xml">
+                <form string="Question">
+                    <sheet>
+                        <group>
+                            <field name="exam_type" required="1"/>
+                            <field name="department_id"/>
+                            <field name="job_grade"/>
+                            <field name="job_role"/>
+                            <field name="name" string="Question Text" required="1"/>
+                            <field name="question_type" required="1"/>
+                            <field name="exam_ids" widget="many2many_tags" options="{'no_create': True}"
+                                   string="Used In Exams"/>
+                            <field name="mark"/>
+                        </group>
+
+                        <!-- Multiple Choice -->
+                        <group string="Multiple Choice Options" invisible="question_type!='multiple_choice'">
+                            <field name="option_a"/>
+                            <field name="option_b"/>
+                            <field name="option_c"/>
+                            <field name="option_d"/>
+                            <field name="correct_ans"/>
+                        </group>
+
+                        <!-- True/False -->
+                        <group string="True/False Answer" invisible="question_type!='true_false'">
+                            <field name="true_false_answer"/>
+                        </group>
+
+                        <!-- Essay -->
+                        <!--                        <group string="Essay Answer" invisible="question_type!='essay'">-->
+                        <!--                            <field name="essay_answer"/>-->
+                        <!--                        </group>-->
+
+                        <!-- Matching -->
+                        <!--                        <group string="Matching" invisible="question_type!='matching'">-->
+                        <!--                            <field name="match_question"/>-->
+                        <!--                            <field name="match_answer"/>-->
+                        <!--                        </group>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action: Question Bank -->
+        <record id="action_exam_question_bank" model="ir.actions.act_window">
+            <field name="name">Question Bank</field>
+            <field name="res_model">exam.question</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create and manage exam questions here.</p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

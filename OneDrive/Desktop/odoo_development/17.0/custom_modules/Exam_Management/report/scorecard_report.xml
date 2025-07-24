@@ -1,0 +1,39 @@
+<odoo>
+    <!-- Scorecard Report Template -->
+    <template id="scorecard_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="padding: 20px; font-family: Arial, sans-serif;">
+                    <h2 style="text-align: center; color: #4A90E2;">Exam Scorecard</h2>
+                    <hr />
+                    <div style="margin-bottom: 20px;">
+                        <p><strong>Employee Name:</strong> <t t-esc="doc.employee_id.name"/></p>
+                        <p><strong>Employee ID:</strong> <t t-esc="doc.employee_id.employee_code or 'N/A'"/></p>
+                        <p><strong>Exam:</strong> <t t-esc="doc.exam_id.name"/></p>
+                        <p><strong>Exam Date:</strong> <t t-esc="doc.exam_id.exam_date"/></p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <p><strong>Score:</strong> <t t-esc="doc.score"/>%</p>
+                        <p><strong>Result:</strong> <t t-esc="doc.passed and 'Passed' or 'Failed'"/></p>
+                        <p><strong>Remarks:</strong> <t t-esc="doc.remarks or 'No remarks'"/></p>
+                    </div>
+                    <div style="text-align: center; margin-top: 40px;">
+                        <p>______________________</p>
+                        <p style="font-style: italic;">Signature of HR Manager</p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Definition -->
+    <report
+        id="action_scorecard_report"
+        model="exam.result"
+        string="Scorecard"
+        report_type="qweb-pdf"
+        name="Exam_Management.scorecard_template"
+        file="Exam_Management.scorecard_template"
+        print_report_name="'Scorecard - %s' % (object.employee_id.name)"
+    />
+</odoo>
